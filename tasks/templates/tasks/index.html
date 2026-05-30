@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-</head>
-<body>
+{% extends "tasks/base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
     <h1>Добро пожаловать!</h1>
     <p>Это главная страница сайта.</p>
     <a href="{% url 'task_list' %}">Перейти к заданиям</a>
-</body>
-</html>
+{% endblock %}

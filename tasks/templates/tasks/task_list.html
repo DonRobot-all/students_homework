@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Задания</title>
-</head>
-<body>
+{% extends "tasks/base.html" %}
+
+{% block title %}Задания{% endblock %}
+
+{% block content %}
     <h1>Список заданий</h1>
     <p>Здесь будут задания.</p>
     <ul>
-    {% for task in tasks %}
-        <li>{{ task }}</li>
-    {% empty %}
-        <li>Заданий нет</li>
-    {% endfor %}
-</ul>
-
-</body>
-</html>
+        {% for task in tasks %}
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+            <li>
+                <a href="{% url 'task_detail' forloop.counter %}">{{ task.title }}</a>
+            </li>
+        {% empty %}
+            <li>Заданий нет</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
