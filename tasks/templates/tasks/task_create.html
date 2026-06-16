@@ -1,0 +1,13 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Новое задание{% endblock %}
+
+{% block content %}
+    <h1>Новое задание</h1>
+
+    <form method="post">
+        {% csrf_token %}  <!--обязательная защита, Django не примет форму без него.-->  
+        {{ form.as_p }}   <!--Django сам рисует все поля формы, каждое в теге <p>.-->
+        <button type="submit">Сохранить</button>
+    </form>
+{% endblock %}

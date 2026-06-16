@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Task
+from .forms import TaskForm
 
 # Create your views here.
 
@@ -36,3 +37,15 @@ def task_detail(request, pk):
     # return render(request, 'tasks/task_detail.html', {'task': task, 'pk': pk})
     task = Task.objects.get(pk=pk)
     return render(request, 'tasks/task_detail.html', {'task': task, 'pk': pk})
+
+
+def task_create(request):
+    if request.method == 'POST':          # пользователь нажал "Сохранить"
+        form = TaskForm(request.POST)
+        if form.is_valid():               # данные прошли проверку
+            form.save()                   # сохранить в БД
+            return redirect('task_list')  # перейти к списку
+    else:                                 # пользователь просто открыл страницу
+        form = TaskForm()
+
+    return render(request, 'tasks/task_create.html', {'form': form})
