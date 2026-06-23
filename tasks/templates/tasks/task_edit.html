@@ -1,0 +1,14 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Редактировать: {{ task.title }}{% endblock %}
+
+{% block content %}
+    <h1>Редактировать задание</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+        <a href="{% url 'task_list' %}">Отмена</a>
+    </form>
+{% endblock %}

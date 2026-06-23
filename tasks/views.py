@@ -49,3 +49,27 @@ def task_create(request):
         form = TaskForm()
 
     return render(request, 'tasks/task_create.html', {'form': form})
+
+
+def task_edit(request, pk):
+    task = Task.objects.get(pk=pk)        # найти задание по pk
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)  # instance — говорим какой объект редактируем
+        if form.is_valid():
+            form.save()
+            return redirect('task_list')
+    else:
+        form = TaskForm(instance=task)    # форма уже заполнена данными задания
+
+    return render(request, 'tasks/task_edit.html', {'form': form, 'task': task})
+
+
+def task_delete(request, pk):
+    task = Task.objects.get(pk=pk)
+
+    if request.method == 'POST':          # пользователь подтвердил удаление
+        task.delete()
+        return redirect('task_list')
+
+    return render(request, 'tasks/task_delete.html', {'task': task})

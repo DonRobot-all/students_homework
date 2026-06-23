@@ -17,5 +17,12 @@
         {% endfor %}
     </ul>
     <a href="{% url 'task_create' %}">+ Новое задание</a>
+    {% for task in tasks %}
+    <div>
+        <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
+        <a href="{% url 'task_edit' task.pk %}">Изменить</a>
+        <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+    </div>
+{% endfor %}
 {% endblock %}
 
