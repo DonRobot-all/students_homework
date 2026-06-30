@@ -7,18 +7,28 @@ from .models import Task
 #         fields = ['title', 'description']
 
 
+# class TaskForm(forms.ModelForm):
+#     class Meta:
+#         model = Task
+#         fields = ['title', 'description']
+
+#     def clean_title(self):
+#         title = self.cleaned_data['title']
+        
+#         if len(title) < 3:
+#             raise forms.ValidationError('Название слишком короткое')
+        
+#         if title[0].islower():
+#             raise forms.ValidationError('Название должно начинаться с заглавной буквы')
+        
+#         return title  # обязательно вернуть значение
+
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title', 'description']
-
-    def clean_title(self):
-        title = self.cleaned_data['title']
-        
-        if len(title) < 3:
-            raise forms.ValidationError('Название слишком короткое')
-        
-        if title[0].islower():
-            raise forms.ValidationError('Название должно начинаться с заглавной буквы')
-        
-        return title  # обязательно вернуть значение
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'is_done': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
